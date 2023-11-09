@@ -9,4 +9,36 @@
     <USelect :options="transactionView.options" v-model="selectedView">
     </USelect>
   </section>
+  <section
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-16 mb-10"
+  >
+    <Trend
+      color="green"
+      title="Income"
+      :amount="4000"
+      :lastAmount="3000"
+      :loading="false"
+    />
+    <Trend
+      color="red"
+      title="Income"
+      :amount="4000"
+      :lastAmount="3000"
+      :loading="false"
+    />
+    <Trend
+      color="green"
+      title="Income"
+      :amount="4000"
+      :lastAmount="3000"
+      :loading="false"
+    />
+    <Trend
+      color="red"
+      title="Income"
+      :amount="4000"
+      :lastAmount="3000"
+      :loading="false"
+    />
+  </section>
 </template>
