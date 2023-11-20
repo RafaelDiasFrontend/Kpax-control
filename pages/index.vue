@@ -16,14 +16,14 @@
       color="green"
       title="Income"
       :amount="4000"
-      :lastAmount="3000"
+      :lastAmount="4000"
       :loading="false"
     />
     <Trend
       color="red"
       title="Income"
       :amount="4000"
-      :lastAmount="3000"
+      :lastAmount="5000"
       :loading="false"
     />
     <Trend
@@ -37,7 +37,7 @@
       color="red"
       title="Income"
       :amount="4000"
-      :lastAmount="3000"
+      :lastAmount="4100"
       :loading="false"
     />
   </section>
