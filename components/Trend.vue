@@ -23,7 +23,7 @@
   const { currency } = useCurrency(props.amount)
 
   const percentageTrend = computed(() => {
-    if (props.amount === 0 || props.lastAmount === 0) return '1000'
+    if (props.amount === 0 || props.lastAmount === 0) return '0'
 
     const bigger = Math.max(props.amount, props.lastAmount)
     const lower = Math.min(props.amount, props.lastAmount)
@@ -31,7 +31,7 @@
     const ratio = ((bigger - lower) / lower) * 100
     console.log(bigger, lower, ratio, Math.ceil(ratio))
 
-    return ratio
+    return Math.floor(ratio)
   })
 </script>
 
@@ -52,8 +52,7 @@
           :class="trendingUp ? 'green' : 'red'"
         />
         <div class="text-gray-500 dark:text-gray-400">
-          {{ percentageTrend }}
-          em relação ao ultimo balanço
+          {{ percentageTrend }}% em relação ao ultimo balanço
         </div>
       </div>
     </div>
