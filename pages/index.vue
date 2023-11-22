@@ -1,6 +1,12 @@
 <script setup>
   import { transactionView } from '../constant.ts'
   const selectedView = ref(transactionView.options[1])
+
+  const client = useSupabaseClient()
+
+  const { data, error } = await client.from('Transactions').select()
+
+  console.log('error', error, 'data', data)
 </script>
 
 <template>
