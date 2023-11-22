@@ -2,11 +2,16 @@
   import { transactionView } from '../constant.ts'
   const selectedView = ref(transactionView.options[1])
 
-  const client = useSupabaseClient()
+  const supabase = useSupabaseClient()
 
-  const { data, error } = await client.from('Transactions').select()
+  const transactions = ref([])
 
-  console.log('error', error, 'data', data)
+  const { data, pending } = await useAsyncData('transactions', async () => {
+    const { data, error } = await supabase.from('Transactions').select()
+    if (error) return []
+    return data
+  })
+  transactions.value = data.value
 </script>
 
 <template>
@@ -49,9 +54,10 @@
   </section>
 
   <section>
-    <Transaction />
-    <Transaction />
-    <Transaction />
-    <Transaction />
+    <Transaction
+      v-for="transaction in transactions"
+      :key="transaction.id"
+      :transaction="transaction"
+    />
   </section>
 </template>
