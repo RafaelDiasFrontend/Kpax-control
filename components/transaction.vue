@@ -3,6 +3,19 @@
     transaction: Object,
   })
 
+  // VERIFY IF IT IS A INCOME OR A EXPENSE
+  const isIncoming = computed(() => props.transaction.type === 'Entrada')
+
+  const icon = computed(() =>
+    isIncoming.value
+      ? 'i-heroicons-arrow-up-right'
+      : 'i-heroicons-arrow-down-left',
+  )
+
+  const iconColor = computed(() =>
+    isIncoming.value ? 'text-green-600' : 'text-red-600',
+  )
+
   const { currency } = useCurrency(props.transaction.amount)
   const items = [
     [
@@ -26,7 +39,7 @@
   >
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-1">
-        <UIcon name="i-heroicons-arrow-up-right" class="text-green-600" />
+        <UIcon :name="icon" :class="iconColor" />
         <div>{{ transaction.description }}</div>
       </div>
       <div>
