@@ -12,6 +12,17 @@
     return data
   })
   transactions.value = data.value
+
+  const transactionsGroupedByDate = computed(() => {
+    let grouped = {}
+
+    for (const transaction of transactions.value) {
+      const date = new Date(transaction.created_at).toISOString()
+      console.log(date)
+    }
+  })
+
+  console.log(transactionsGroupedByDate.value)
 </script>
 
 <template>
