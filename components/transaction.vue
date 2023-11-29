@@ -35,7 +35,7 @@
 
 <template>
   <div
-    class="grid grid-cols-2 py-4 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100"
+    class="grid grid-cols-2 py-4 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 font-bold"
   >
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-1">
