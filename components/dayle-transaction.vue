@@ -28,6 +28,8 @@
       {{ date }}
     </div>
 
-    <div class="flex items-center justify-end space-x-2">{{ currency }}</div>
+    <div class="flex items-center justify-end space-x-2 mr-10">
+      {{ currency }}
+    </div>
   </div>
 </template>

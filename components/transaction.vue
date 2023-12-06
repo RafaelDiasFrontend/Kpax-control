@@ -1,36 +1,61 @@
 <script setup>
-  const props = defineProps({
-    transaction: Object,
-  })
+const props = defineProps({
+  transaction: Object,
+})
 
-  // VERIFY IF IT IS A INCOME OR A EXPENSE
-  const isIncoming = computed(() => props.transaction.type === 'Entrada')
+// VERIFY IF IT IS A INCOME OR A EXPENSE
+const isIncoming = computed(() => props.transaction.type === 'Entrada')
 
-  const icon = computed(() =>
-    isIncoming.value
-      ? 'i-heroicons-arrow-up-right'
-      : 'i-heroicons-arrow-down-left',
-  )
+const icon = computed(() =>
+  isIncoming.value
+    ? 'i-heroicons-arrow-up-right'
+    : 'i-heroicons-arrow-down-left'
+)
 
-  const iconColor = computed(() =>
-    isIncoming.value ? 'text-green-600' : 'text-red-600',
-  )
+const iconColor = computed(() =>
+  isIncoming.value ? 'text-green-600' : 'text-red-600'
+)
 
-  const { currency } = useCurrency(props.transaction.amount)
-  const items = [
-    [
-      {
-        label: 'Editar',
-        icon: 'i-heroicons-pencil-square-20-solid',
-        click: () => console.log('Editado'),
-      },
-      {
-        label: 'Delete',
-        icon: 'i-heroicons-trash-20-solid',
-        click: () => console.log('Excluido'),
-      },
-    ],
-  ]
+const { currency } = useCurrency(props.transaction.amount)
+
+const isLoading = ref(false)
+const supabase = useSupabaseClient()
+const toast = useToast()
+
+const deleteTransaction = async () => {
+  isLoading.value = true
+
+  try {
+    await supabase.from('Transactions').delete().eq('id', props.transaction.id)
+    toast.add({
+      title: 'Transação excluida com sucesso!',
+      icon: 'i-heroicons-check-circle',
+      color: 'green',
+    })
+  } catch (error) {
+    toast.add({
+      title: 'Ops Ocorreu um erro!',
+      icon: 'i-heroicons-exclamation-circle',
+      color: 'red',
+    })
+  } finally {
+    isLoading.value = false
+  }
+}
+const items = [
+  [
+    {
+      label: 'Editar',
+      icon: 'i-heroicons-pencil-square-20-solid',
+      click: () => console.log('Editado'),
+    },
+    {
+      label: 'Delete',
+      icon: 'i-heroicons-trash-20-solid',
+      click: deleteTransaction,
+    },
+  ],
+]
 </script>
 
 <template>
@@ -57,6 +82,7 @@
             color="white"
             variant="ghost"
             trailing-icon="i-heroicons-ellipsis-horizontal"
+            :loading="isLoading"
           />
         </UDropdown>
       </div>
